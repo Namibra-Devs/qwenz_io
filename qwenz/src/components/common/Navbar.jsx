@@ -11,7 +11,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50); // detach after 50px
+      setScrolled(window.scrollY > 20); // detach after 50px
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -31,14 +31,14 @@ const Navbar = () => {
         w-full md:w-[90%] max-w-6xl px-6 py-3 rounded-2xl
         pointer-events-auto
         ${scrolled
-          ? "mt-4 bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg"
+          ? "mt-4 bg-white/10 backdrop-blur-lg shadow-lg"
           : "mt-0 bg-transparent border-0 shadow-none"
         }`}
       >
         {/* Logo + Typewriter */}
         <Link to="/" className="flex items-center space-x-2">
            <img src={logo} alt="Qwenz.io" className="w-10 h-10 object-contain rounded-full" />
-          <span className="font-bold text-lg text-black">
+          <span className="font-bold text-lg text-white">
             <Typewriter
               words={["Qwenz.io", "Crypto Made Simple", "Track. Trade. Grow."]}
               loop
@@ -66,7 +66,7 @@ const Navbar = () => {
             >
               <Link
                 to={item.path}
-                className="text-black font-medium hover:text-blue-400 transition"
+                className="text-white font-medium hover:text-blue-400 transition"
               >
                 {item.name}
               </Link>
