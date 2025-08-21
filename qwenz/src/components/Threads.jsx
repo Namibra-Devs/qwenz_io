@@ -120,9 +120,9 @@ void main() {
 
 const Threads = ({
   color = [1, 1, 1],
-  amplitude = 14,
+  amplitude = 1,
   distance = 0,
-  enableMouseInteraction = true,
+  enableMouseInteraction = false,
   ...rest
 }) => {
   const containerRef = useRef(null);
