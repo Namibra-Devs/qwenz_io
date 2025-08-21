@@ -66,8 +66,11 @@ const Home = () => {
         </div>
       </div>
 
-      {/* 👇 Parallax Section Below Hero */}
-      <ImageParallaxSection />
+     {/* 👇 Parallax Section Below Hero */}
+<div className="relative">
+  <ImageParallaxSection />
+</div>
+
     </div>
   );
 };
