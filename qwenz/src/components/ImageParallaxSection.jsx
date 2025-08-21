@@ -1,19 +1,19 @@
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-import img1 from "@assets/images/img1.png";
-import img2 from "@assets/images/img2.png";
-import img3 from "@assets/images/img3.png";
-import img4 from "@assets/images/img4.png";
-
 const ImageParallaxSection = () => {
-  
   const { scrollYProgress } = useScroll();
 
   const y1 = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
   const y2 = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const y3 = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
   const y4 = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
+
+  // Use absolute paths from public folder
+  const img1 = "/images/img1.PNG";
+  const img2 = "/images/img2.PNG";
+  const img3 = "/images/img3.PNG";
+  const img4 = "/images/img4.PNG";
 
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black text-white">

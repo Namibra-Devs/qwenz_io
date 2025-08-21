@@ -4,8 +4,8 @@ import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
 
-// ✅ Import logo from assets
-import logo from "../assets/images/qwenz-logo.jpg";
+// ✅ Use public folder path for logo
+const logo = "/images/qwenz-logo.jpg";
 
 const navLinks = [
   { name: "Home", path: "/" },
