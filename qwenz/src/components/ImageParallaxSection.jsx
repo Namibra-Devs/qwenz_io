@@ -1,14 +1,13 @@
-// src/components/ImageParallaxSection.jsx
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-import img1 from "../assets/images/img1.png";
-import img2 from "../assets/images/img2.png";
-import img3 from "../assets/images/img3.png";
-import img4 from "../assets/images/img4.png";
+import img1 from "@assets/images/img1.png";
+import img2 from "@assets/images/img2.png";
+import img3 from "@assets/images/img3.png";
+import img4 from "@assets/images/img4.png";
 
 const ImageParallaxSection = () => {
-  // 👇 global scroll, no target
+  
   const { scrollYProgress } = useScroll();
 
   const y1 = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
