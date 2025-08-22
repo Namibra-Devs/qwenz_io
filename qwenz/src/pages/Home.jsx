@@ -5,6 +5,7 @@ import Threads from "../components/Threads";
 import ImageParallaxSection from "../components/ImageParallaxSection"; // <-- Import new section
 import VirtualCardSection from "../components/VirtualCardSection";
 import FeatureBlocks from "../components/FeatureBlocks";
+import GiftCardsSection from "../components/GiftCards";
 
 const Home = () => {
   return (
@@ -73,6 +74,7 @@ const Home = () => {
   <ImageParallaxSection />
   <VirtualCardSection />
   <FeatureBlocks />
+  <GiftCardsSection />
 </div>
 
     </div>
