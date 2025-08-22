@@ -3,6 +3,7 @@ import React from "react";
 import { FaGooglePlay, FaApple } from "react-icons/fa";
 import Threads from "../components/Threads";
 import ImageParallaxSection from "../components/ImageParallaxSection"; // <-- Import new section
+import VirtualCardSection from "../components/VirtualCardSection";
 
 const Home = () => {
   return (
@@ -69,6 +70,7 @@ const Home = () => {
      {/* 👇 Parallax Section Below Hero */}
 <div className="relative">
   <ImageParallaxSection />
+  <VirtualCardSection />
 </div>
 
     </div>
