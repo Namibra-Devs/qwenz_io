@@ -12,7 +12,7 @@ const ImageParallaxSection = () => {
 
   // Parallax translations
   const y1 = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
-  const y2 = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const y2 = useTransform(scrollYProgress, [0, 1], ["0%", "70%"]);
   const y3 = useTransform(scrollYProgress, [0, 1], ["0%", "55%"]);
   const y4 = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
 
