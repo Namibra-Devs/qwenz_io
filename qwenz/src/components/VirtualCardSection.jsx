@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -14,28 +14,9 @@ const details = [
 ];
 
 const VirtualCardSection = () => {
-  const cardRef = useRef(null);
-  const [rotation, setRotation] = useState({ rotateX: 0, rotateY: 0 });
-
   useEffect(() => {
     AOS.init({ duration: 1000, once: true, easing: "ease-in-out" });
   }, []);
-
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-
-    const rotateY = (0.5 - x) * 40;
-    const rotateX = (y - 0.5) * 20;
-
-    setRotation({ rotateX, rotateY });
-  };
-
-  const handleMouseLeave = () => {
-    setRotation({ rotateX: 0, rotateY: 0 });
-  };
 
   return (
     <section
@@ -61,64 +42,50 @@ const VirtualCardSection = () => {
         </div>
       </div>
 
-     {/* Card and Details */}
-<div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 mt-12">
-  {/* 3D Card */}
-  <motion.div
-    ref={cardRef}
-    className="w-full lg:w-1/2 perspective-1000 cursor-pointer"
-    onMouseMove={handleMouseMove}
-    onMouseLeave={handleMouseLeave}
-    animate={{ rotateX: rotation.rotateX, rotateY: rotation.rotateY }}
-    transition={{ type: "spring", stiffness: 200, damping: 25 }}
-    data-aos="zoom-in-up"
-  >
-    <motion.img
-      src="/images/virtual-card.PNG"
-      alt="Virtual Card"
-      className="w-full max-w-full rounded-2xl shadow-2xl backdrop-blur-sm 
-      border border-white/10 transition-all duration-300 
-      hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]"
-      style={{
-        filter: `brightness(1.1) drop-shadow(0 10px 20px rgba(0,0,0,0.5))`,
-        transform: `translateZ(50px)`,
-      }}
-    />
-  </motion.div>
-
-  {/* Details with AOS */}
-  <div className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10 lg:mt-0">
-    {details.map((item, i) => (
-      <div
-        key={i}
-        data-aos="fade-up"
-        data-aos-delay={i * 200}
-        className="flex flex-col items-left bg-white/5 backdrop-blur-lg p-5 rounded-xl 
-        border border-white/10 shadow-lg text-left transition-all duration-300 
-        hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
-      >
-        <div
-          className="bg-gradient-to-br from-white/30 to-white/10 w-14 h-14 rounded-full 
-        flex items-center justify-center mb-4 shadow-inner"
-        >
-          <img
-            src={item.logo}
-            alt={item.title}
-            className="w-8 h-8 rounded-full"
+      {/* Card and Details */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 mt-12">
+        {/* Card (clean, no 3D) */}
+        <div className="w-full lg:w-1/2 cursor-pointer" data-aos="zoom-in-up">
+          <motion.img
+            src="/images/virtual-card.PNG"
+            alt="Virtual Card"
+            className="w-full max-w-full rounded-2xl shadow-2xl backdrop-blur-sm 
+            border border-white/10 transition-all duration-300 
+            hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]"
+            style={{
+              filter: `brightness(1.1) drop-shadow(0 10px 20px rgba(0,0,0,0.5))`,
+            }}
+            whileHover={{ scale: 1.03 }}
+            transition={{ type: "spring", stiffness: 200, damping: 20 }}
           />
         </div>
-        <p className="text-white font-semibold text-lg">{item.title}</p>
+
+        {/* Details with AOS */}
+        <div className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10 lg:mt-0">
+          {details.map((item, i) => (
+            <div
+              key={i}
+              data-aos="fade-up"
+              data-aos-delay={i * 200}
+              className="flex flex-col items-left bg-white/5 backdrop-blur-lg p-5 rounded-xl 
+              border border-white/10 shadow-lg text-left transition-all duration-300 
+              hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+            >
+              <div
+                className="bg-gradient-to-br from-white/30 to-white/10 w-14 h-14 rounded-full 
+                flex items-center justify-center mb-4 shadow-inner"
+              >
+                <img
+                  src={item.logo}
+                  alt={item.title}
+                  className="w-8 h-8 rounded-full"
+                />
+              </div>
+              <p className="text-white font-semibold text-lg">{item.title}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    ))}
-  </div>
-</div>
-
-
-      <style jsx>{`
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-      `}</style>
     </section>
   );
 };
