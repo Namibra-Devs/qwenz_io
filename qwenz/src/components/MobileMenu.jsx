@@ -43,7 +43,7 @@ export default function MobileMenu({ setOpen }) {
         <motion.a
           href="#"
           whileTap={{ scale: 0.9 }}
-          className="px-6 py-3 rounded-full bg-gradient-to-r from-orange-400 to-pink-500 text-white font-medium shadow-lg"
+          className="px-6 py-3 rounded-full bg-gradient-to-r from-[#314ce4] to-[#3a59d1] text-white font-medium shadow-lg"
         >
           Download
         </motion.a>
