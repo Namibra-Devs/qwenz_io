@@ -4,6 +4,7 @@ import { FaGooglePlay, FaApple } from "react-icons/fa";
 import Threads from "../components/Threads";
 import ImageParallaxSection from "../components/ImageParallaxSection"; // <-- Import new section
 import VirtualCardSection from "../components/VirtualCardSection";
+import FeatureBlocks from "../components/FeatureBlocks";
 
 const Home = () => {
   return (
@@ -71,6 +72,7 @@ const Home = () => {
 <div className="relative">
   <ImageParallaxSection />
   <VirtualCardSection />
+  <FeatureBlocks />
 </div>
 
     </div>
