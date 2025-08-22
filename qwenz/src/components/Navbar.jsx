@@ -78,7 +78,7 @@ export default function Navbar() {
             {/* Logo + Typewriter */}
             <div className="flex items-center gap-3">
               <img src={logo} alt="Qwenz Logo" className="w-12 h-12 rounded-full" />
-              <span className="font-bold text-lg md:text-xl bg-gradient-to-r from-orange-400 to-pink-500 bg-clip-text text-transparent">
+              <span className="font-bold text-lg md:text-xl bg-gradient-to-r from-[#3d90d7] to-[#3a59d1] bg-clip-text text-transparent">
                 {displayed}
                 <span className="animate-pulse">|</span>
               </span>
@@ -91,13 +91,13 @@ export default function Navbar() {
                   <Link 
                     to={link.path}
                     className={`relative px-2 py-1 transition-all ${
-                      location.pathname === link.path ? "text-orange-400" : "text-white"
+                      location.pathname === link.path ? "text-blue-400" : "text-white"
                     }`}
                   >
                     {link.name}
                     <span className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 
                       w-2 h-2 rounded-full transition-all ${
-                        location.pathname === link.path ? "bg-orange-400 scale-100" : "bg-orange-400 scale-0"
+                        location.pathname === link.path ? "bg-blue-500 scale-100" : "bg-blue-400 scale-0"
                       }`}></span>
                   </Link>
                 </motion.li>
@@ -108,7 +108,7 @@ export default function Navbar() {
                 href="#"
                 whileTap={{ scale: 0.9 }}
                 whileHover={{ scale: 1.05 }}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-orange-400 to-pink-500 text-white font-medium shadow-lg hover:shadow-pink-500/50 transition-all"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#314ce4] to-[#3a59d1] text-white font-medium shadow-md hover:shadow-blue-50 transition-all"
               >
                 Download
               </motion.a>

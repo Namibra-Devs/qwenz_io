@@ -39,7 +39,7 @@ const VirtualCardSection = () => {
 
   return (
     <section
-      className="relative w-full min-h-screen bg-cover bg-center"
+      className="relative w-full min-h-screen bg-cover bg-center pb-8"
       style={{ backgroundImage: "url('/images/hero1.jpg')" }}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />

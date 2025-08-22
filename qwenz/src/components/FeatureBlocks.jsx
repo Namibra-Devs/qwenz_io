@@ -2,7 +2,7 @@ import React from "react";
 
 const FeatureBlocks = () => {
   return (
-    <section className="w-full flex flex-col">
+    <section className="w-full flex flex-col pb-8">
       {/* Top Block */}
       <div className="w-full grid grid-cols-1 lg:grid-cols-2 min-h-[80vh]">
         {/* Left Dark Side */}
