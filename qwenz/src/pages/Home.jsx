@@ -6,6 +6,7 @@ import ImageParallaxSection from "../components/ImageParallaxSection"; // <-- Im
 import VirtualCardSection from "../components/VirtualCardSection";
 import FeatureBlocks from "../components/FeatureBlocks";
 import GiftCardsSection from "../components/GiftCards";
+import GetStartedSection from "../components/GetStarted";
 
 const Home = () => {
   return (
@@ -75,6 +76,7 @@ const Home = () => {
   <VirtualCardSection />
   <FeatureBlocks />
   <GiftCardsSection />
+  <GetStartedSection />
 </div>
 
     </div>
