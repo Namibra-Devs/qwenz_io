@@ -30,7 +30,7 @@ export default function GetStartedSection() {
     segmentCenters: [], // each icon center relative to container top (px)
   });
 
-  const progressSpring = useSpring(0, { stiffness: 120, damping: 18 });
+  const progressSpring = useSpring(0, { stiffness: 130, damping: 21 });
 
   // Measure positions (first->last icon centers) relative to the container
   const measure = () => {
@@ -159,7 +159,7 @@ export default function GetStartedSection() {
         {/* RIGHT: Large Image */}
         <div className="flex items-center justify-center">
           <motion.img
-            src="/images/phone-mock.webp"
+            src="/images/iPhone.png"
             alt="Get started preview"
             className="w-[88%] sm:w-[70%] lg:w-[80%] max-w-[520px] rounded-2xl shadow-2xl"
             initial={{ opacity: 0, y: 24 }}
