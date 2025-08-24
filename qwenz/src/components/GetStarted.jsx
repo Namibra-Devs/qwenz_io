@@ -1,110 +1,173 @@
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { CheckCircle } from "lucide-react";
+// src/sections/GetStartedSection.jsx
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { motion, useSpring } from "framer-motion";
+import { CheckCircle, Smartphone, Gift } from "lucide-react";
 
 const steps = [
-  { title: "Create Account", desc: "Sign up quickly and securely." },
-  { title: "Verify Identity", desc: "Ensure safe transactions with KYC." },
-  { title: "Start Trading", desc: "Buy, sell, and redeem instantly." },
+  {
+    icon: <Smartphone className="w-6 h-6 text-white" />,
+    title: "Download the App",
+    description: "Install on iOS or Android and create your secure account.",
+  },
+  {
+    icon: <Gift className="w-6 h-6 text-white" />,
+    title: "Choose Your Card",
+    description: "Pick from a wide variety of supported gift cards worldwide.",
+  },
+  {
+    icon: <CheckCircle className="w-6 h-6 text-white" />,
+    title: "Trade & Redeem",
+    description: "Complete trades safely and redeem instantly in the app.",
+  },
 ];
 
 export default function GetStartedSection() {
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"],
+  const stepRefs = useRef([]);
+  const [track, setTrack] = useState({
+    startTop: 0, // top (px) of the track inside the container
+    total: 0,    // total length from first icon center to last icon center (px)
+    segmentCenters: [], // each icon center relative to container top (px)
   });
 
-  // Smooth spring for progress
-  const eased = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 20,
-    mass: 0.5,
-  });
+  const progressSpring = useSpring(0, { stiffness: 120, damping: 18 });
 
-  // Step-based progress with easing
-  const stepProgress = useTransform(eased, (p) => {
-    const stepSize = 1 / (steps.length - 1);
-    const stepIndex = Math.floor(p / stepSize);
-    const start = stepIndex * stepSize;
-    const end = (stepIndex + 1) * stepSize;
-    const localT = (p - start) / (end - start);
-    const easedT = localT * localT * (3 - 2 * localT); // smoothstep easing
-    return stepIndex * stepSize + easedT * stepSize;
-  });
+  // Measure positions (first->last icon centers) relative to the container
+  const measure = () => {
+    if (!containerRef.current || stepRefs.current.length === 0) return;
+
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const containerTopAbs = containerRect.top + window.scrollY;
+
+    const centersRel = stepRefs.current.map((el) => {
+      const r = el.getBoundingClientRect();
+      const centerAbs = r.top + r.height / 2 + window.scrollY;
+      return centerAbs - containerTopAbs; // relative to container
+    });
+
+    const startTop = centersRel[0];
+    const endTop = centersRel[centersRel.length - 1];
+    setTrack({
+      startTop,
+      total: Math.max(endTop - startTop, 0),
+      segmentCenters: centersRel,
+    });
+  };
+
+  useLayoutEffect(() => {
+    measure();
+    // Re-measure after fonts/images load
+    const rAF = requestAnimationFrame(measure);
+    window.addEventListener("resize", measure);
+    return () => {
+      cancelAnimationFrame(rAF);
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
+  // Drive progress by a viewport “anchor” line (e.g., 60% down the screen)
+  useEffect(() => {
+    let rafId;
+    const onScroll = () => {
+      if (!containerRef.current || track.total === 0) return;
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const anchorAbs = window.scrollY + window.innerHeight * 0.6;
+        const containerTopAbs =
+          containerRef.current.getBoundingClientRect().top + window.scrollY;
+
+        // Anchor relative to container
+        const anchorRel = anchorAbs - containerTopAbs;
+
+        // Progress height from first center; clamp to [0, total]
+        const raw = anchorRel - track.startTop;
+        const clamped = Math.max(0, Math.min(raw, track.total));
+        progressSpring.set(clamped);
+      });
+    };
+
+    onScroll(); // initialize
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [track.startTop, track.total, progressSpring]);
 
   return (
-    <section
-      ref={containerRef}
-      className="w-full bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white py-24 px-6 lg:px-20"
-    >
-      {/* Title */}
-      <h2 className="text-4xl font-bold mb-16 text-left">Get Started</h2>
+    <section className="w-full bg-gradient-to-br from-[#0b1530] to-[#152341] text-white py-20">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16">
+        {/* LEFT: Title + Timeline */}
+        <div>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-10">Get Started</h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        {/* Left - Timeline */}
-        <div className="relative flex flex-col space-y-12">
-          {/* Background Line */}
-          <div className="absolute left-6 top-0 bottom-0 w-1 bg-gray-700 rounded-full" />
+          <div ref={containerRef} className="relative">
+            {/* Full vertical track (from first to last center) */}
+            <div
+              className="absolute left-[22px] sm:left-[26px] top-0 w-1 bg-white/10 rounded-full"
+              style={{
+                top: track.startTop,
+                height: track.total,
+              }}
+            />
+            {/* Growing progress line */}
+            <motion.div
+              className="absolute left-[22px] sm:left-[26px] w-1 rounded-full bg-gradient-to-b from-blue-500 to-indigo-400 shadow-[0_0_10px_rgba(59,130,246,0.6)]"
+              style={{
+                top: track.startTop,
+                height: progressSpring, // animated px value
+              }}
+            />
 
-          {/* Animated Line */}
-          <motion.div
-            style={{ scaleY: stepProgress }}
-            className="absolute left-6 top-0 w-1 origin-top bg-gradient-to-b from-blue-500 to-blue-700 rounded-full"
-          />
+            <ul className="space-y-10">
+              {steps.map((s, i) => {
+                const setRef = (el) => (stepRefs.current[i] = el);
+                return (
+                  <li key={s.title} className="relative">
+                    {/* Icon + halo */}
+                    <div className="flex items-start">
+                      <div ref={setRef} className="relative shrink-0">
+                        <div className="relative z-10 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-blue-600 flex items-center justify-center shadow-xl">
+                          {s.icon}
+                        </div>
+                        <div className="absolute inset-0 rounded-full bg-blue-500/30 blur-md" />
+                      </div>
 
-          {steps.map((step, i) => {
-            const stepSize = 1 / (steps.length - 1);
-            const isActive = useTransform(stepProgress, (p) => p >= i * stepSize);
-
-            return (
-              <div key={i} className="relative flex items-start gap-6">
-                {/* Icon */}
-                <motion.div
-                  className="relative z-10"
-                  style={{
-                    scale: isActive ? 1.2 : 1,
-                  }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  <div
-                    className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${
-                      isActive ? "bg-blue-500 ring-4 ring-blue-400/40" : "bg-blue-600"
-                    }`}
-                  >
-                    <CheckCircle className="w-6 h-6 text-white" />
-                  </div>
-                </motion.div>
-
-                {/* Texts with animation */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0.5, y: 10 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="max-w-xs"
-                >
-                  <h3 className="text-xl font-semibold">{step.title}</h3>
-                  <p className="text-gray-300">{step.desc}</p>
-                </motion.div>
-              </div>
-            );
-          })}
+                      {/* Text */}
+                      <motion.div
+                        initial={{ opacity: 0, y: -12 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        className="ml-5 sm:ml-6"
+                      >
+                        <h3 className="text-lg sm:text-xl font-semibold">
+                          {s.title}
+                        </h3>
+                        <p className="text-gray-300 mt-2 text-sm sm:text-base max-w-md">
+                          {s.description}
+                        </p>
+                      </motion.div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
 
-        {/* Right - Large Image */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true }}
-          className="flex justify-center"
-        >
-          <img
+        {/* RIGHT: Large Image */}
+        <div className="flex items-center justify-center">
+          <motion.img
             src="/images/phone-mock.webp"
-            alt="Phone Mockup"
-            className="w-72 md:w-[420px] object-contain drop-shadow-2xl"
+            alt="Get started preview"
+            className="w-[88%] sm:w-[70%] lg:w-[80%] max-w-[520px] rounded-2xl shadow-2xl"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.3 }}
           />
-        </motion.div>
+        </div>
       </div>
     </section>
   );
