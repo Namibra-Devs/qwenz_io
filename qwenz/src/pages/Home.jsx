@@ -8,6 +8,7 @@ import FeatureBlocks from "../components/FeatureBlocks";
 import GiftCardsSection from "../components/GiftCards";
 import GetStartedSection from "../components/GetStarted";
 import ReviewSection from "../components/ReviewSection";
+import ContactSection from "../components/ContactSection";
 
 const Home = () => {
   return (
@@ -79,6 +80,7 @@ const Home = () => {
   <GiftCardsSection />
   <GetStartedSection />
   <ReviewSection />
+  <ContactSection />
 </div>
 
     </div>
