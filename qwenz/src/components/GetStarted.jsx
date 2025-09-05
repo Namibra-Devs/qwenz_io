@@ -157,7 +157,7 @@ export default function GetStartedSection() {
         </div>
 
         {/* RIGHT: Large Image */}
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center float">
           <motion.img
             src="/images/iPhone.png"
             alt="Get started preview"

@@ -16,3 +16,11 @@ body {
   width: max-content;
   animation: marquee 50s linear infinite;
 }
+/* Add this to your CSS file */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+.float {
+  animation: float 3s ease-in-out infinite;
+}

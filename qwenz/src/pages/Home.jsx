@@ -7,6 +7,7 @@ import VirtualCardSection from "../components/VirtualCardSection";
 import FeatureBlocks from "../components/FeatureBlocks";
 import GiftCardsSection from "../components/GiftCards";
 import GetStartedSection from "../components/GetStarted";
+import ReviewSection from "../components/ReviewSection";
 
 const Home = () => {
   return (
@@ -77,6 +78,7 @@ const Home = () => {
   <FeatureBlocks />
   <GiftCardsSection />
   <GetStartedSection />
+  <ReviewSection />
 </div>
 
     </div>
