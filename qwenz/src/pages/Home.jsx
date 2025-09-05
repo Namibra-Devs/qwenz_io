@@ -9,6 +9,7 @@ import GiftCardsSection from "../components/GiftCards";
 import GetStartedSection from "../components/GetStarted";
 import ReviewSection from "../components/ReviewSection";
 import ContactSection from "../components/ContactSection";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -81,6 +82,7 @@ const Home = () => {
   <GetStartedSection />
   <ReviewSection />
   <ContactSection />
+  <Footer />
 </div>
 
     </div>
