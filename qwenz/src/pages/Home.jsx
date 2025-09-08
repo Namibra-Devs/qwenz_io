@@ -2,14 +2,14 @@
 import React from "react";
 import { FaGooglePlay, FaApple } from "react-icons/fa";
 import Threads from "../components/Threads";
-import ImageParallaxSection from "../components/ImageParallaxSection"; // <-- Import new section
-import VirtualCardSection from "../components/VirtualCardSection";
-import FeatureBlocks from "../components/FeatureBlocks";
-import GiftCardsSection from "../components/GiftCards";
-import GetStartedSection from "../components/GetStarted";
-import ReviewSection from "../components/ReviewSection";
-import ContactSection from "../components/ContactSection";
-import Footer from "../components/Footer";
+// import ImageParallaxSection from "../components/ImageParallaxSection"; 
+// import VirtualCardSection from "../components/VirtualCardSection";
+// import FeatureBlocks from "../components/FeatureBlocks";
+// import GiftCardsSection from "../components/GiftCards";
+// import GetStartedSection from "../components/GetStarted";
+// import ReviewSection from "../components/ReviewSection";
+// import ContactSection from "../components/ContactSection";
+// import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -75,14 +75,14 @@ const Home = () => {
 
      {/* 👇 Parallax Section Below Hero */}
 <div className="relative">
-  <ImageParallaxSection />
+  {/* <ImageParallaxSection />
   <VirtualCardSection />
   <FeatureBlocks />
   <GiftCardsSection />
   <GetStartedSection />
   <ReviewSection />
   <ContactSection />
-  <Footer />
+  <Footer /> */}
 </div>
 
     </div>
